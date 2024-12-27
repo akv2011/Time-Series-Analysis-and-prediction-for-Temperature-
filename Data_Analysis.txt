@@ -1,0 +1,1956 @@
+Step 1: Preprocessing the data...
+
+Preprocessing data: Handling missing values and outliers...
+
+Numerical columns: ['ID', 'City_ID', 'Particulate_matter', 'SO2_concentration', 'O3_concentration', 'CO_concentration', 'NO2_concentration', 'Presure', 'Dew_point', 'Precipitation', 'Anonymous_X1', 'Wind_speed', 'Moisture_percent', 'Temperature', 'Day', 'Day_of_Week', 'Hour', 'Month', 'Year', 'pollution_index', 'SO2_to_NO2_ratio', 'O3_to_NO2_ratio', 'weighted_pollution_index', 'is_weekend', 'particulate_pollution_ratio']
+Categorical columns: ['time_of_day', 'season']
+
+Interpolating missing values for numerical columns using time method...
+Handling missing values for categorical columns using forward fill...
+/home/systemx86/Desktop/Hack/Spy_Zen_aws/Hack_earth/Code/New_Lag_Corr_detect.py:87: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  df_clean[categorical_cols] = df_clean[categorical_cols].fillna(method='ffill')
+/home/systemx86/Desktop/Hack/Spy_Zen_aws/Hack_earth/Code/New_Lag_Corr_detect.py:88: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  df_clean[categorical_cols] = df_clean[categorical_cols].fillna(method='bfill')
+
+Processing outliers for numeric columns...
+
+Processing column 'ID' for outliers...
+Removing outliers in column 'ID': Lower bound = -38565.50, Upper bound = 101608.50
+Processing column 'City_ID' for outliers...
+Removing outliers in column 'City_ID': Lower bound = -1.50, Upper bound = 2.50
+Processing column 'Particulate_matter' for outliers...
+Removing outliers in column 'Particulate_matter': Lower bound = -132.00, Upper bound = 324.00
+Processing column 'SO2_concentration' for outliers...
+Removing outliers in column 'SO2_concentration': Lower bound = -133.52, Upper bound = 384.61
+Processing column 'O3_concentration' for outliers...
+Removing outliers in column 'O3_concentration': Lower bound = -94.50, Upper bound = 189.50
+Processing column 'CO_concentration' for outliers...
+Removing outliers in column 'CO_concentration': Lower bound = -3235.17, Upper bound = 10038.54
+Processing column 'NO2_concentration' for outliers...
+Removing outliers in column 'NO2_concentration': Lower bound = -115.25, Upper bound = 406.40
+Processing column 'Presure' for outliers...
+Removing outliers in column 'Presure': Lower bound = 979.79, Upper bound = 1045.09
+Processing column 'Dew_point' for outliers...
+Removing outliers in column 'Dew_point': Lower bound = -44.75, Upper bound = 50.05
+Processing column 'Precipitation' for outliers...
+Removing outliers in column 'Precipitation': Lower bound = 0.00, Upper bound = 0.00
+Processing column 'Anonymous_X1' for outliers...
+Removing outliers in column 'Anonymous_X1': Lower bound = -23.24, Upper bound = 121.44
+Processing column 'Wind_speed' for outliers...
+Removing outliers in column 'Wind_speed': Lower bound = -1.25, Upper bound = 4.75
+Processing column 'Moisture_percent' for outliers...
+Removing outliers in column 'Moisture_percent': Lower bound = -6.65, Upper bound = 98.92
+Processing column 'Temperature' for outliers...
+Removing outliers in column 'Temperature': Lower bound = -25.95, Upper bound = 52.44
+Processing column 'Day' for outliers...
+Removing outliers in column 'Day': Lower bound = -14.50, Upper bound = 45.50
+Processing column 'Day_of_Week' for outliers...
+Removing outliers in column 'Day_of_Week': Lower bound = -5.00, Upper bound = 11.00
+Processing column 'Hour' for outliers...
+Removing outliers in column 'Hour': Lower bound = -14.50, Upper bound = 37.50
+Processing column 'Month' for outliers...
+Removing outliers in column 'Month': Lower bound = -6.00, Upper bound = 18.00
+Processing column 'Year' for outliers...
+Removing outliers in column 'Year': Lower bound = 2014.00, Upper bound = 2022.00
+Processing column 'pollution_index' for outliers...
+Removing outliers in column 'pollution_index': Lower bound = -1192.11, Upper bound = 3635.00
+Processing column 'SO2_to_NO2_ratio' for outliers...
+Removing outliers in column 'SO2_to_NO2_ratio': Lower bound = 0.21, Upper bound = 1.54
+Processing column 'O3_to_NO2_ratio' for outliers...
+Removing outliers in column 'O3_to_NO2_ratio': Lower bound = -0.61, Upper bound = 1.37
+Processing column 'weighted_pollution_index' for outliers...
+Removing outliers in column 'weighted_pollution_index': Lower bound = -1089.35, Upper bound = 3312.15
+Processing column 'is_weekend' for outliers...
+Removing outliers in column 'is_weekend': Lower bound = 0.00, Upper bound = 0.00
+Processing column 'particulate_pollution_ratio' for outliers...
+Removing outliers in column 'particulate_pollution_ratio': Lower bound = -0.17, Upper bound = 0.37
+
+Data preprocessing completed.
+
+
+Step 2: Checking for multicollinearity...
+
+Checking for multicollinearity...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/stats/outliers_influence.py:197: RuntimeWarning: divide by zero encountered in scalar divide
+  vif = 1. / (1. - r_squared_i)
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/regression/linear_model.py:1785: RuntimeWarning: invalid value encountered in scalar divide
+  return 1 - self.ssr/self.uncentered_tss
+Variance Inflation Factors:
+                        Feature           VIF
+22     weighted_pollution_index           inf
+3             SO2_concentration           inf
+5              CO_concentration           inf
+6             NO2_concentration           inf
+19              pollution_index           inf
+18                         Year  3.985184e+04
+7                       Presure  3.896587e+04
+20             SO2_to_NO2_ratio  4.842299e+01
+13                  Temperature  4.293816e+01
+12             Moisture_percent  2.303905e+01
+0                            ID  2.202209e+01
+10                 Anonymous_X1  1.256487e+01
+24  particulate_pollution_ratio  1.247923e+01
+4              O3_concentration  1.209436e+01
+1                       City_ID  1.189981e+01
+2            Particulate_matter  1.068868e+01
+21              O3_to_NO2_ratio  1.047324e+01
+8                     Dew_point  6.698578e+00
+17                        Month  6.591059e+00
+11                   Wind_speed  5.627900e+00
+16                         Hour  5.285399e+00
+14                          Day  4.189320e+00
+15                  Day_of_Week  3.254598e+00
+9                 Precipitation           NaN
+23                   is_weekend           NaN
+
+Features with high VIF (> 5.0):
+                        Feature           VIF
+22     weighted_pollution_index           inf
+3             SO2_concentration           inf
+5              CO_concentration           inf
+6             NO2_concentration           inf
+19              pollution_index           inf
+18                         Year  3.985184e+04
+7                       Presure  3.896587e+04
+20             SO2_to_NO2_ratio  4.842299e+01
+13                  Temperature  4.293816e+01
+12             Moisture_percent  2.303905e+01
+0                            ID  2.202209e+01
+10                 Anonymous_X1  1.256487e+01
+24  particulate_pollution_ratio  1.247923e+01
+4              O3_concentration  1.209436e+01
+1                       City_ID  1.189981e+01
+2            Particulate_matter  1.068868e+01
+21              O3_to_NO2_ratio  1.047324e+01
+8                     Dew_point  6.698578e+00
+17                        Month  6.591059e+00
+11                   Wind_speed  5.627900e+00
+16                         Hour  5.285399e+00
+
+Highly correlated feature pairs (|correlation| > 0.8):
+City_ID <-> ID: 0.908
+CO_concentration <-> SO2_concentration: 0.804
+NO2_concentration <-> SO2_concentration: 0.886
+Temperature <-> SO2_concentration: 0.893
+Temperature <-> CO_concentration: 0.855
+Temperature <-> NO2_concentration: 0.877
+Temperature <-> Presure: -0.829
+Temperature <-> Dew_point: 0.808
+pollution_index <-> SO2_concentration: 0.823
+pollution_index <-> CO_concentration: 0.999
+pollution_index <-> NO2_concentration: 0.811
+pollution_index <-> Temperature: 0.868
+weighted_pollution_index <-> SO2_concentration: 0.827
+weighted_pollution_index <-> CO_concentration: 0.999
+weighted_pollution_index <-> NO2_concentration: 0.813
+weighted_pollution_index <-> Temperature: 0.870
+weighted_pollution_index <-> pollution_index: 1.000
+
+Step 3: Running correlation analysis...
+
+Analyzing correlations with target 'Temperature'...
+
+Calculating Pearson correlation...
+Calculating Spearman correlation...
+
+Top correlated features (Pearson):
+ Temperature                 1.000000
+SO2_concentration           0.892895
+NO2_concentration           0.877020
+weighted_pollution_index    0.869935
+pollution_index             0.868085
+Name: Temperature, dtype: float64
+
+Top correlated features (Spearman):
+ Temperature                 1.000000
+SO2_concentration           0.888410
+NO2_concentration           0.885069
+weighted_pollution_index    0.883418
+pollution_index             0.882151
+Name: Temperature, dtype: float64
+
+Plotting Pearson vs. Spearman correlations...
+
+
+Step 4: Running Granger causality analysis...
+
+Performing Granger causality tests with target 'Temperature' and maxlag=5:
+
+Testing if 'ID' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.8593  , p=0.3539  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.8593  , p=0.3539  , df=1
+likelihood ratio test: chi2=0.8593  , p=0.3539  , df=1
+parameter F test:         F=0.8593  , p=0.3539  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=86.9164 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=173.8483, p=0.0000  , df=2
+likelihood ratio test: chi2=173.5790, p=0.0000  , df=2
+parameter F test:         F=86.9164 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=47.4766 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=142.4477, p=0.0000  , df=3
+likelihood ratio test: chi2=142.2668, p=0.0000  , df=3
+parameter F test:         F=47.4766 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=34.6206 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=138.5047, p=0.0000  , df=4
+likelihood ratio test: chi2=138.3337, p=0.0000  , df=4
+parameter F test:         F=34.6206 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=28.6316 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=143.1863, p=0.0000  , df=5
+likelihood ratio test: chi2=143.0035, p=0.0000  , df=5
+parameter F test:         F=28.6316 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for ID and Temperature completed successfully.
+
+Results for 'ID' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.8593, p=0.3539, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.8593, p=0.3539, df=1
+  - Likelihood ratio test: chi2=0.8593, p=0.3539, df=1
+  - Parameter F test: F=0.8593, p=0.3539, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=86.9164, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=173.8483, p=0.0000, df=2
+  - Likelihood ratio test: chi2=173.5790, p=0.0000, df=2
+  - Parameter F test: F=86.9164, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=47.4766, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=142.4477, p=0.0000, df=3
+  - Likelihood ratio test: chi2=142.2668, p=0.0000, df=3
+  - Parameter F test: F=47.4766, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=34.6206, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=138.5047, p=0.0000, df=4
+  - Likelihood ratio test: chi2=138.3337, p=0.0000, df=4
+  - Parameter F test: F=34.6206, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=28.6316, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=143.1863, p=0.0000, df=5
+  - Likelihood ratio test: chi2=143.0035, p=0.0000, df=5
+  - Parameter F test: F=28.6316, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'ID' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'City_ID' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.0087  , p=0.9259  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.0087  , p=0.9259  , df=1
+likelihood ratio test: chi2=0.0087  , p=0.9259  , df=1
+parameter F test:         F=0.0087  , p=0.9259  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=85.5401 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=171.0955, p=0.0000  , df=2
+likelihood ratio test: chi2=170.8347, p=0.0000  , df=2
+parameter F test:         F=85.5401 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=46.2455 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=138.7539, p=0.0000  , df=3
+likelihood ratio test: chi2=138.5823, p=0.0000  , df=3
+parameter F test:         F=46.2455 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=33.6304 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=134.5432, p=0.0000  , df=4
+likelihood ratio test: chi2=134.3819, p=0.0000  , df=4
+parameter F test:         F=33.6304 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=27.8985 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=139.5200, p=0.0000  , df=5
+likelihood ratio test: chi2=139.3465, p=0.0000  , df=5
+parameter F test:         F=27.8985 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for City_ID and Temperature completed successfully.
+
+Results for 'City_ID' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.0087, p=0.9259, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.0087, p=0.9259, df=1
+  - Likelihood ratio test: chi2=0.0087, p=0.9259, df=1
+  - Parameter F test: F=0.0087, p=0.9259, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=85.5401, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=171.0955, p=0.0000, df=2
+  - Likelihood ratio test: chi2=170.8347, p=0.0000, df=2
+  - Parameter F test: F=85.5401, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=46.2455, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=138.7539, p=0.0000, df=3
+  - Likelihood ratio test: chi2=138.5823, p=0.0000, df=3
+  - Parameter F test: F=46.2455, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=33.6304, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=134.5432, p=0.0000, df=4
+  - Likelihood ratio test: chi2=134.3819, p=0.0000, df=4
+  - Parameter F test: F=33.6304, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=27.8985, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=139.5200, p=0.0000, df=5
+  - Likelihood ratio test: chi2=139.3465, p=0.0000, df=5
+  - Parameter F test: F=27.8985, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'City_ID' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Particulate_matter' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.1107  , p=0.7394  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.1107  , p=0.7393  , df=1
+likelihood ratio test: chi2=0.1107  , p=0.7393  , df=1
+parameter F test:         F=0.1107  , p=0.7394  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=0.4406  , p=0.6437  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=0.8813  , p=0.6436  , df=2
+likelihood ratio test: chi2=0.8813  , p=0.6436  , df=2
+parameter F test:         F=0.4406  , p=0.6437  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=1.1487  , p=0.3278  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=3.4466  , p=0.3278  , df=3
+likelihood ratio test: chi2=3.4465  , p=0.3278  , df=3
+parameter F test:         F=1.1487  , p=0.3278  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=1.8622  , p=0.1140  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=7.4498  , p=0.1139  , df=4
+likelihood ratio test: chi2=7.4493  , p=0.1140  , df=4
+parameter F test:         F=1.8622  , p=0.1140  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=5.0011  , p=0.0001  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=25.0102 , p=0.0001  , df=5
+likelihood ratio test: chi2=25.0046 , p=0.0001  , df=5
+parameter F test:         F=5.0011  , p=0.0001  , df_denom=55984, df_num=5
+
+Granger Causality Test for Particulate_matter and Temperature completed successfully.
+
+Results for 'Particulate_matter' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.1107, p=0.7394, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.1107, p=0.7393, df=1
+  - Likelihood ratio test: chi2=0.1107, p=0.7393, df=1
+  - Parameter F test: F=0.1107, p=0.7394, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=0.4406, p=0.6437, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=0.8813, p=0.6436, df=2
+  - Likelihood ratio test: chi2=0.8813, p=0.6436, df=2
+  - Parameter F test: F=0.4406, p=0.6437, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=1.1487, p=0.3278, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=3.4466, p=0.3278, df=3
+  - Likelihood ratio test: chi2=3.4465, p=0.3278, df=3
+  - Parameter F test: F=1.1487, p=0.3278, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=1.8622, p=0.1140, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=7.4498, p=0.1139, df=4
+  - Likelihood ratio test: chi2=7.4493, p=0.1140, df=4
+  - Parameter F test: F=1.8622, p=0.1140, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=5.0011, p=0.0001, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=25.0102, p=0.0001, df=5
+  - Likelihood ratio test: chi2=25.0046, p=0.0001, df=5
+  - Parameter F test: F=5.0011, p=0.0001, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Particulate_matter' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'SO2_concentration' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=23.5056 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=23.5068 , p=0.0000  , df=1
+likelihood ratio test: chi2=23.5019 , p=0.0000  , df=1
+parameter F test:         F=23.5056 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=35.8486 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=71.7037 , p=0.0000  , df=2
+likelihood ratio test: chi2=71.6578 , p=0.0000  , df=2
+parameter F test:         F=35.8486 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=30.0920 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=90.2872 , p=0.0000  , df=3
+likelihood ratio test: chi2=90.2145 , p=0.0000  , df=3
+parameter F test:         F=30.0920 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=24.1347 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=96.5543 , p=0.0000  , df=4
+likelihood ratio test: chi2=96.4711 , p=0.0000  , df=4
+parameter F test:         F=24.1347 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=20.1367 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=100.7030, p=0.0000  , df=5
+likelihood ratio test: chi2=100.6126, p=0.0000  , df=5
+parameter F test:         F=20.1367 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for SO2_concentration and Temperature completed successfully.
+
+Results for 'SO2_concentration' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=23.5056, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=23.5068, p=0.0000, df=1
+  - Likelihood ratio test: chi2=23.5019, p=0.0000, df=1
+  - Parameter F test: F=23.5056, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=35.8486, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=71.7037, p=0.0000, df=2
+  - Likelihood ratio test: chi2=71.6578, p=0.0000, df=2
+  - Parameter F test: F=35.8486, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=30.0920, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=90.2872, p=0.0000, df=3
+  - Likelihood ratio test: chi2=90.2145, p=0.0000, df=3
+  - Parameter F test: F=30.0920, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=24.1347, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=96.5543, p=0.0000, df=4
+  - Likelihood ratio test: chi2=96.4711, p=0.0000, df=4
+  - Parameter F test: F=24.1347, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=20.1367, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=100.7030, p=0.0000, df=5
+  - Likelihood ratio test: chi2=100.6126, p=0.0000, df=5
+  - Parameter F test: F=20.1367, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'SO2_concentration' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'O3_concentration' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=3286.7625, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=3286.9386, p=0.0000  , df=1
+likelihood ratio test: chi2=3194.0889, p=0.0000  , df=1
+parameter F test:         F=3286.7625, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=1054.3089, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=2108.8060, p=0.0000  , df=2
+likelihood ratio test: chi2=2070.0682, p=0.0000  , df=2
+parameter F test:         F=1054.3089, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=639.7378, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=1919.4533, p=0.0000  , df=3
+likelihood ratio test: chi2=1887.2890, p=0.0000  , df=3
+parameter F test:         F=639.7378, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=480.6188, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1922.7842, p=0.0000  , df=4
+likelihood ratio test: chi2=1890.5088, p=0.0000  , df=4
+parameter F test:         F=480.6188, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=377.8066, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1889.4042, p=0.0000  , df=5
+likelihood ratio test: chi2=1858.2271, p=0.0000  , df=5
+parameter F test:         F=377.8066, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for O3_concentration and Temperature completed successfully.
+
+Results for 'O3_concentration' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=3286.7625, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=3286.9386, p=0.0000, df=1
+  - Likelihood ratio test: chi2=3194.0889, p=0.0000, df=1
+  - Parameter F test: F=3286.7625, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=1054.3089, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=2108.8060, p=0.0000, df=2
+  - Likelihood ratio test: chi2=2070.0682, p=0.0000, df=2
+  - Parameter F test: F=1054.3089, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=639.7378, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=1919.4533, p=0.0000, df=3
+  - Likelihood ratio test: chi2=1887.2890, p=0.0000, df=3
+  - Parameter F test: F=639.7378, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=480.6188, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1922.7842, p=0.0000, df=4
+  - Likelihood ratio test: chi2=1890.5088, p=0.0000, df=4
+  - Parameter F test: F=480.6188, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=377.8066, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1889.4042, p=0.0000, df=5
+  - Likelihood ratio test: chi2=1858.2271, p=0.0000, df=5
+  - Parameter F test: F=377.8066, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'O3_concentration' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'CO_concentration' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=16.1025 , p=0.0001  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=16.1034 , p=0.0001  , df=1
+likelihood ratio test: chi2=16.1011 , p=0.0001  , df=1
+parameter F test:         F=16.1025 , p=0.0001  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=28.6931 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=57.3913 , p=0.0000  , df=2
+likelihood ratio test: chi2=57.3619 , p=0.0000  , df=2
+parameter F test:         F=28.6931 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=20.7377 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=62.2209 , p=0.0000  , df=3
+likelihood ratio test: chi2=62.1864 , p=0.0000  , df=3
+parameter F test:         F=20.7377 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=15.7384 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=62.9638 , p=0.0000  , df=4
+likelihood ratio test: chi2=62.9285 , p=0.0000  , df=4
+parameter F test:         F=15.7384 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=13.1437 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=65.7313 , p=0.0000  , df=5
+likelihood ratio test: chi2=65.6928 , p=0.0000  , df=5
+parameter F test:         F=13.1437 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for CO_concentration and Temperature completed successfully.
+
+Results for 'CO_concentration' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=16.1025, p=0.0001, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=16.1034, p=0.0001, df=1
+  - Likelihood ratio test: chi2=16.1011, p=0.0001, df=1
+  - Parameter F test: F=16.1025, p=0.0001, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=28.6931, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=57.3913, p=0.0000, df=2
+  - Likelihood ratio test: chi2=57.3619, p=0.0000, df=2
+  - Parameter F test: F=28.6931, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=20.7377, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=62.2209, p=0.0000, df=3
+  - Likelihood ratio test: chi2=62.1864, p=0.0000, df=3
+  - Parameter F test: F=20.7377, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=15.7384, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=62.9638, p=0.0000, df=4
+  - Likelihood ratio test: chi2=62.9285, p=0.0000, df=4
+  - Parameter F test: F=15.7384, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=13.1437, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=65.7313, p=0.0000, df=5
+  - Likelihood ratio test: chi2=65.6928, p=0.0000, df=5
+  - Parameter F test: F=13.1437, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'CO_concentration' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'NO2_concentration' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=20.2031 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=20.2042 , p=0.0000  , df=1
+likelihood ratio test: chi2=20.2006 , p=0.0000  , df=1
+parameter F test:         F=20.2031 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=31.3480 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=62.7016 , p=0.0000  , df=2
+likelihood ratio test: chi2=62.6665 , p=0.0000  , df=2
+parameter F test:         F=31.3480 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=26.0952 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=78.2952 , p=0.0000  , df=3
+likelihood ratio test: chi2=78.2406 , p=0.0000  , df=3
+parameter F test:         F=26.0952 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=21.2738 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=85.1090 , p=0.0000  , df=4
+likelihood ratio test: chi2=85.0444 , p=0.0000  , df=4
+parameter F test:         F=21.2738 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=17.6111 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=88.0728 , p=0.0000  , df=5
+likelihood ratio test: chi2=88.0036 , p=0.0000  , df=5
+parameter F test:         F=17.6111 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for NO2_concentration and Temperature completed successfully.
+
+Results for 'NO2_concentration' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=20.2031, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=20.2042, p=0.0000, df=1
+  - Likelihood ratio test: chi2=20.2006, p=0.0000, df=1
+  - Parameter F test: F=20.2031, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=31.3480, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=62.7016, p=0.0000, df=2
+  - Likelihood ratio test: chi2=62.6665, p=0.0000, df=2
+  - Parameter F test: F=31.3480, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=26.0952, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=78.2952, p=0.0000, df=3
+  - Likelihood ratio test: chi2=78.2406, p=0.0000, df=3
+  - Parameter F test: F=26.0952, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=21.2738, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=85.1090, p=0.0000, df=4
+  - Likelihood ratio test: chi2=85.0444, p=0.0000, df=4
+  - Parameter F test: F=21.2738, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=17.6111, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=88.0728, p=0.0000, df=5
+  - Likelihood ratio test: chi2=88.0036, p=0.0000, df=5
+  - Parameter F test: F=17.6111, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'NO2_concentration' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Presure' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=22.6304 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=22.6316 , p=0.0000  , df=1
+likelihood ratio test: chi2=22.6271 , p=0.0000  , df=1
+parameter F test:         F=22.6304 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=266.2292, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=532.5060, p=0.0000  , df=2
+likelihood ratio test: chi2=529.9900, p=0.0000  , df=2
+parameter F test:         F=266.2292, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=304.8498, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=914.6639, p=0.0000  , df=3
+likelihood ratio test: chi2=907.2741, p=0.0000  , df=3
+parameter F test:         F=304.8498, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=340.4845, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1362.1570, p=0.0000  , df=4
+likelihood ratio test: chi2=1345.8529, p=0.0000  , df=4
+parameter F test:         F=340.4845, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=305.6418, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1528.5092, p=0.0000  , df=5
+likelihood ratio test: chi2=1508.0192, p=0.0000  , df=5
+parameter F test:         F=305.6418, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Presure and Temperature completed successfully.
+
+Results for 'Presure' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=22.6304, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=22.6316, p=0.0000, df=1
+  - Likelihood ratio test: chi2=22.6271, p=0.0000, df=1
+  - Parameter F test: F=22.6304, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=266.2292, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=532.5060, p=0.0000, df=2
+  - Likelihood ratio test: chi2=529.9900, p=0.0000, df=2
+  - Parameter F test: F=266.2292, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=304.8498, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=914.6639, p=0.0000, df=3
+  - Likelihood ratio test: chi2=907.2741, p=0.0000, df=3
+  - Parameter F test: F=304.8498, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=340.4845, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1362.1570, p=0.0000, df=4
+  - Likelihood ratio test: chi2=1345.8529, p=0.0000, df=4
+  - Parameter F test: F=340.4845, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=305.6418, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1528.5092, p=0.0000, df=5
+  - Likelihood ratio test: chi2=1508.0192, p=0.0000, df=5
+  - Parameter F test: F=305.6418, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Presure' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Dew_point' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=662.6696, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=662.7051, p=0.0000  , df=1
+likelihood ratio test: chi2=658.8145, p=0.0000  , df=1
+parameter F test:         F=662.6696, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=956.0199, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=1912.2105, p=0.0000  , df=2
+likelihood ratio test: chi2=1880.2863, p=0.0000  , df=2
+parameter F test:         F=956.0199, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=894.3459, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=2683.3732, p=0.0000  , df=3
+likelihood ratio test: chi2=2621.0625, p=0.0000  , df=3
+parameter F test:         F=894.3459, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=763.6044, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=3054.9085, p=0.0000  , df=4
+likelihood ratio test: chi2=2974.4890, p=0.0000  , df=4
+parameter F test:         F=763.6044, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=615.6285, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=3078.7471, p=0.0000  , df=5
+likelihood ratio test: chi2=2997.0883, p=0.0000  , df=5
+parameter F test:         F=615.6285, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Dew_point and Temperature completed successfully.
+
+Results for 'Dew_point' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=662.6696, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=662.7051, p=0.0000, df=1
+  - Likelihood ratio test: chi2=658.8145, p=0.0000, df=1
+  - Parameter F test: F=662.6696, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=956.0199, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=1912.2105, p=0.0000, df=2
+  - Likelihood ratio test: chi2=1880.2863, p=0.0000, df=2
+  - Parameter F test: F=956.0199, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=894.3459, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=2683.3732, p=0.0000, df=3
+  - Likelihood ratio test: chi2=2621.0625, p=0.0000, df=3
+  - Parameter F test: F=894.3459, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=763.6044, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=3054.9085, p=0.0000, df=4
+  - Likelihood ratio test: chi2=2974.4890, p=0.0000, df=4
+  - Parameter F test: F=763.6044, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=615.6285, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=3078.7471, p=0.0000, df=5
+  - Likelihood ratio test: chi2=2997.0883, p=0.0000, df=5
+  - Parameter F test: F=615.6285, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Dew_point' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Anonymous_X1' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=159.9363, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=159.9449, p=0.0000  , df=1
+likelihood ratio test: chi2=159.7169, p=0.0000  , df=1
+parameter F test:         F=159.9363, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=320.5649, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=641.1870, p=0.0000  , df=2
+likelihood ratio test: chi2=637.5439, p=0.0000  , df=2
+parameter F test:         F=320.5649, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=354.6862, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=1064.1917, p=0.0000  , df=3
+likelihood ratio test: chi2=1054.2058, p=0.0000  , df=3
+parameter F test:         F=354.6862, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=324.9146, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1299.8673, p=0.0000  , df=4
+likelihood ratio test: chi2=1285.0095, p=0.0000  , df=4
+parameter F test:         F=324.9146, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=264.4146, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1322.3326, p=0.0000  , df=5
+likelihood ratio test: chi2=1306.9605, p=0.0000  , df=5
+parameter F test:         F=264.4146, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Anonymous_X1 and Temperature completed successfully.
+
+Results for 'Anonymous_X1' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=159.9363, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=159.9449, p=0.0000, df=1
+  - Likelihood ratio test: chi2=159.7169, p=0.0000, df=1
+  - Parameter F test: F=159.9363, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=320.5649, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=641.1870, p=0.0000, df=2
+  - Likelihood ratio test: chi2=637.5439, p=0.0000, df=2
+  - Parameter F test: F=320.5649, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=354.6862, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=1064.1917, p=0.0000, df=3
+  - Likelihood ratio test: chi2=1054.2058, p=0.0000, df=3
+  - Parameter F test: F=354.6862, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=324.9146, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1299.8673, p=0.0000, df=4
+  - Likelihood ratio test: chi2=1285.0095, p=0.0000, df=4
+  - Parameter F test: F=324.9146, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=264.4146, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1322.3326, p=0.0000, df=5
+  - Likelihood ratio test: chi2=1306.9605, p=0.0000, df=5
+  - Parameter F test: F=264.4146, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Anonymous_X1' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Wind_speed' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=268.3921, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=268.4065, p=0.0000  , df=1
+likelihood ratio test: chi2=267.7653, p=0.0000  , df=1
+parameter F test:         F=268.3921, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=550.3040, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=1100.7064, p=0.0000  , df=2
+likelihood ratio test: chi2=1090.0282, p=0.0000  , df=2
+parameter F test:         F=550.3040, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=518.2663, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=1554.9932, p=0.0000  , df=3
+likelihood ratio test: chi2=1533.7943, p=0.0000  , df=3
+parameter F test:         F=518.2663, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=453.4797, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1814.2104, p=0.0000  , df=4
+likelihood ratio test: chi2=1785.4409, p=0.0000  , df=4
+parameter F test:         F=453.4797, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=375.4007, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1877.3722, p=0.0000  , df=5
+likelihood ratio test: chi2=1846.5866, p=0.0000  , df=5
+parameter F test:         F=375.4007, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Wind_speed and Temperature completed successfully.
+
+Results for 'Wind_speed' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=268.3921, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=268.4065, p=0.0000, df=1
+  - Likelihood ratio test: chi2=267.7653, p=0.0000, df=1
+  - Parameter F test: F=268.3921, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=550.3040, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=1100.7064, p=0.0000, df=2
+  - Likelihood ratio test: chi2=1090.0282, p=0.0000, df=2
+  - Parameter F test: F=550.3040, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=518.2663, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=1554.9932, p=0.0000, df=3
+  - Likelihood ratio test: chi2=1533.7943, p=0.0000, df=3
+  - Parameter F test: F=518.2663, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=453.4797, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1814.2104, p=0.0000, df=4
+  - Likelihood ratio test: chi2=1785.4409, p=0.0000, df=4
+  - Parameter F test: F=453.4797, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=375.4007, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1877.3722, p=0.0000, df=5
+  - Likelihood ratio test: chi2=1846.5866, p=0.0000, df=5
+  - Parameter F test: F=375.4007, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Wind_speed' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Moisture_percent' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.1959  , p=0.6581  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.1959  , p=0.6580  , df=1
+likelihood ratio test: chi2=0.1959  , p=0.6580  , df=1
+parameter F test:         F=0.1959  , p=0.6581  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=0.7787  , p=0.4590  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=1.5576  , p=0.4590  , df=2
+likelihood ratio test: chi2=1.5575  , p=0.4590  , df=2
+parameter F test:         F=0.7787  , p=0.4590  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=2.2810  , p=0.0771  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=6.8437  , p=0.0770  , df=3
+likelihood ratio test: chi2=6.8433  , p=0.0771  , df=3
+parameter F test:         F=2.2810  , p=0.0771  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=3.5562  , p=0.0066  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=14.2270 , p=0.0066  , df=4
+likelihood ratio test: chi2=14.2252 , p=0.0066  , df=4
+parameter F test:         F=3.5562  , p=0.0066  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=3.4388  , p=0.0041  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=17.1974 , p=0.0041  , df=5
+likelihood ratio test: chi2=17.1948 , p=0.0041  , df=5
+parameter F test:         F=3.4388  , p=0.0041  , df_denom=55984, df_num=5
+
+Granger Causality Test for Moisture_percent and Temperature completed successfully.
+
+Results for 'Moisture_percent' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.1959, p=0.6581, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.1959, p=0.6580, df=1
+  - Likelihood ratio test: chi2=0.1959, p=0.6580, df=1
+  - Parameter F test: F=0.1959, p=0.6581, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=0.7787, p=0.4590, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=1.5576, p=0.4590, df=2
+  - Likelihood ratio test: chi2=1.5575, p=0.4590, df=2
+  - Parameter F test: F=0.7787, p=0.4590, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=2.2810, p=0.0771, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=6.8437, p=0.0770, df=3
+  - Likelihood ratio test: chi2=6.8433, p=0.0771, df=3
+  - Parameter F test: F=2.2810, p=0.0771, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=3.5562, p=0.0066, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=14.2270, p=0.0066, df=4
+  - Likelihood ratio test: chi2=14.2252, p=0.0066, df=4
+  - Parameter F test: F=3.5562, p=0.0066, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=3.4388, p=0.0041, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=17.1974, p=0.0041, df=5
+  - Likelihood ratio test: chi2=17.1948, p=0.0041, df=5
+  - Parameter F test: F=3.4388, p=0.0041, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Moisture_percent' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Day' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.0365  , p=0.8485  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.0365  , p=0.8485  , df=1
+likelihood ratio test: chi2=0.0365  , p=0.8485  , df=1
+parameter F test:         F=0.0365  , p=0.8485  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=0.3980  , p=0.6717  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=0.7960  , p=0.6716  , df=2
+likelihood ratio test: chi2=0.7960  , p=0.6717  , df=2
+parameter F test:         F=0.3980  , p=0.6717  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=0.6069  , p=0.6105  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=1.8208  , p=0.6104  , df=3
+likelihood ratio test: chi2=1.8208  , p=0.6104  , df=3
+parameter F test:         F=0.6069  , p=0.6105  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=0.5110  , p=0.7277  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=2.0443  , p=0.7276  , df=4
+likelihood ratio test: chi2=2.0442  , p=0.7276  , df=4
+parameter F test:         F=0.5110  , p=0.7277  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=0.4485  , p=0.8146  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=2.2431  , p=0.8146  , df=5
+likelihood ratio test: chi2=2.2431  , p=0.8146  , df=5
+parameter F test:         F=0.4485  , p=0.8146  , df_denom=55984, df_num=5
+
+Granger Causality Test for Day and Temperature completed successfully.
+
+Results for 'Day' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.0365, p=0.8485, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.0365, p=0.8485, df=1
+  - Likelihood ratio test: chi2=0.0365, p=0.8485, df=1
+  - Parameter F test: F=0.0365, p=0.8485, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=0.3980, p=0.6717, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=0.7960, p=0.6716, df=2
+  - Likelihood ratio test: chi2=0.7960, p=0.6717, df=2
+  - Parameter F test: F=0.3980, p=0.6717, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=0.6069, p=0.6105, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=1.8208, p=0.6104, df=3
+  - Likelihood ratio test: chi2=1.8208, p=0.6104, df=3
+  - Parameter F test: F=0.6069, p=0.6105, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=0.5110, p=0.7277, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=2.0443, p=0.7276, df=4
+  - Likelihood ratio test: chi2=2.0442, p=0.7276, df=4
+  - Parameter F test: F=0.5110, p=0.7277, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=0.4485, p=0.8146, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=2.2431, p=0.8146, df=5
+  - Likelihood ratio test: chi2=2.2431, p=0.8146, df=5
+  - Parameter F test: F=0.4485, p=0.8146, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+No significant Granger causality found for 'Day' causing 'Temperature' (p >= 0.05).
+
+Testing if 'Day_of_Week' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.0809  , p=0.7761  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.0809  , p=0.7761  , df=1
+likelihood ratio test: chi2=0.0809  , p=0.7761  , df=1
+parameter F test:         F=0.0809  , p=0.7761  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=0.0733  , p=0.9294  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=0.1465  , p=0.9294  , df=2
+likelihood ratio test: chi2=0.1465  , p=0.9294  , df=2
+parameter F test:         F=0.0733  , p=0.9294  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=0.0391  , p=0.9897  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=0.1173  , p=0.9897  , df=3
+likelihood ratio test: chi2=0.1173  , p=0.9897  , df=3
+parameter F test:         F=0.0391  , p=0.9897  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=0.0856  , p=0.9869  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=0.3424  , p=0.9869  , df=4
+likelihood ratio test: chi2=0.3424  , p=0.9869  , df=4
+parameter F test:         F=0.0856  , p=0.9869  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=0.2610  , p=0.9344  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1.3051  , p=0.9344  , df=5
+likelihood ratio test: chi2=1.3051  , p=0.9344  , df=5
+parameter F test:         F=0.2610  , p=0.9344  , df_denom=55984, df_num=5
+
+Granger Causality Test for Day_of_Week and Temperature completed successfully.
+
+Results for 'Day_of_Week' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.0809, p=0.7761, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.0809, p=0.7761, df=1
+  - Likelihood ratio test: chi2=0.0809, p=0.7761, df=1
+  - Parameter F test: F=0.0809, p=0.7761, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=0.0733, p=0.9294, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=0.1465, p=0.9294, df=2
+  - Likelihood ratio test: chi2=0.1465, p=0.9294, df=2
+  - Parameter F test: F=0.0733, p=0.9294, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=0.0391, p=0.9897, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=0.1173, p=0.9897, df=3
+  - Likelihood ratio test: chi2=0.1173, p=0.9897, df=3
+  - Parameter F test: F=0.0391, p=0.9897, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=0.0856, p=0.9869, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=0.3424, p=0.9869, df=4
+  - Likelihood ratio test: chi2=0.3424, p=0.9869, df=4
+  - Parameter F test: F=0.0856, p=0.9869, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=0.2610, p=0.9344, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1.3051, p=0.9344, df=5
+  - Likelihood ratio test: chi2=1.3051, p=0.9344, df=5
+  - Parameter F test: F=0.2610, p=0.9344, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+No significant Granger causality found for 'Day_of_Week' causing 'Temperature' (p >= 0.05).
+
+Testing if 'Hour' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=966.3593, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=966.4110, p=0.0000  , df=1
+likelihood ratio test: chi2=958.1667, p=0.0000  , df=1
+parameter F test:         F=966.3593, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=1335.9997, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=2672.2380, p=0.0000  , df=2
+likelihood ratio test: chi2=2610.4365, p=0.0000  , df=2
+parameter F test:         F=1335.9997, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=1538.0765, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=4614.8064, p=0.0000  , df=3
+likelihood ratio test: chi2=4434.4910, p=0.0000  , df=3
+parameter F test:         F=1538.0765, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=1653.6563, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=6615.6884, p=0.0000  , df=4
+likelihood ratio test: chi2=6253.1694, p=0.0000  , df=4
+parameter F test:         F=1653.6563, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=1668.8117, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=8345.6978, p=0.0000  , df=5
+likelihood ratio test: chi2=7779.3835, p=0.0000  , df=5
+parameter F test:         F=1668.8117, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Hour and Temperature completed successfully.
+
+Results for 'Hour' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=966.3593, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=966.4110, p=0.0000, df=1
+  - Likelihood ratio test: chi2=958.1667, p=0.0000, df=1
+  - Parameter F test: F=966.3593, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=1335.9997, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=2672.2380, p=0.0000, df=2
+  - Likelihood ratio test: chi2=2610.4365, p=0.0000, df=2
+  - Parameter F test: F=1335.9997, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=1538.0765, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=4614.8064, p=0.0000, df=3
+  - Likelihood ratio test: chi2=4434.4910, p=0.0000, df=3
+  - Parameter F test: F=1538.0765, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=1653.6563, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=6615.6884, p=0.0000, df=4
+  - Likelihood ratio test: chi2=6253.1694, p=0.0000, df=4
+  - Parameter F test: F=1653.6563, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=1668.8117, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=8345.6978, p=0.0000, df=5
+  - Likelihood ratio test: chi2=7779.3835, p=0.0000, df=5
+  - Parameter F test: F=1668.8117, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Hour' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Month' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=82.4080 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=82.4124 , p=0.0000  , df=1
+likelihood ratio test: chi2=82.3518 , p=0.0000  , df=1
+parameter F test:         F=82.4080 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=108.0304, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=216.0800, p=0.0000  , df=2
+likelihood ratio test: chi2=215.6642, p=0.0000  , df=2
+parameter F test:         F=108.0304, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=94.7133 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=284.1755, p=0.0000  , df=3
+likelihood ratio test: chi2=283.4568, p=0.0000  , df=3
+parameter F test:         F=94.7133 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=76.2284 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=304.9626, p=0.0000  , df=4
+likelihood ratio test: chi2=304.1351, p=0.0000  , df=4
+parameter F test:         F=76.2284 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=57.5660 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=287.8863, p=0.0000  , df=5
+likelihood ratio test: chi2=287.1488, p=0.0000  , df=5
+parameter F test:         F=57.5660 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Month and Temperature completed successfully.
+
+Results for 'Month' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=82.4080, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=82.4124, p=0.0000, df=1
+  - Likelihood ratio test: chi2=82.3518, p=0.0000, df=1
+  - Parameter F test: F=82.4080, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=108.0304, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=216.0800, p=0.0000, df=2
+  - Likelihood ratio test: chi2=215.6642, p=0.0000, df=2
+  - Parameter F test: F=108.0304, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=94.7133, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=284.1755, p=0.0000, df=3
+  - Likelihood ratio test: chi2=283.4568, p=0.0000, df=3
+  - Parameter F test: F=94.7133, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=76.2284, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=304.9626, p=0.0000, df=4
+  - Likelihood ratio test: chi2=304.1351, p=0.0000, df=4
+  - Parameter F test: F=76.2284, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=57.5660, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=287.8863, p=0.0000, df=5
+  - Likelihood ratio test: chi2=287.1488, p=0.0000, df=5
+  - Parameter F test: F=57.5660, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Month' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'Year' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.0052  , p=0.9427  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.0052  , p=0.9427  , df=1
+likelihood ratio test: chi2=0.0052  , p=0.9427  , df=1
+parameter F test:         F=0.0052  , p=0.9427  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=45.5739 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=91.1559 , p=0.0000  , df=2
+likelihood ratio test: chi2=91.0818 , p=0.0000  , df=2
+parameter F test:         F=45.5739 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=25.0466 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=75.1493 , p=0.0000  , df=3
+likelihood ratio test: chi2=75.0989 , p=0.0000  , df=3
+parameter F test:         F=25.0466 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=18.5090 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=74.0481 , p=0.0000  , df=4
+likelihood ratio test: chi2=73.9992 , p=0.0000  , df=4
+parameter F test:         F=18.5090 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=15.2116 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=76.0727 , p=0.0000  , df=5
+likelihood ratio test: chi2=76.0211 , p=0.0000  , df=5
+parameter F test:         F=15.2116 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for Year and Temperature completed successfully.
+
+Results for 'Year' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.0052, p=0.9427, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.0052, p=0.9427, df=1
+  - Likelihood ratio test: chi2=0.0052, p=0.9427, df=1
+  - Parameter F test: F=0.0052, p=0.9427, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=45.5739, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=91.1559, p=0.0000, df=2
+  - Likelihood ratio test: chi2=91.0818, p=0.0000, df=2
+  - Parameter F test: F=45.5739, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=25.0466, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=75.1493, p=0.0000, df=3
+  - Likelihood ratio test: chi2=75.0989, p=0.0000, df=3
+  - Parameter F test: F=25.0466, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=18.5090, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=74.0481, p=0.0000, df=4
+  - Likelihood ratio test: chi2=73.9992, p=0.0000, df=4
+  - Parameter F test: F=18.5090, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=15.2116, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=76.0727, p=0.0000, df=5
+  - Likelihood ratio test: chi2=76.0211, p=0.0000, df=5
+  - Parameter F test: F=15.2116, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'Year' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'pollution_index' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=18.0952 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=18.0962 , p=0.0000  , df=1
+likelihood ratio test: chi2=18.0933 , p=0.0000  , df=1
+parameter F test:         F=18.0952 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=31.7815 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=63.5687 , p=0.0000  , df=2
+likelihood ratio test: chi2=63.5327 , p=0.0000  , df=2
+parameter F test:         F=31.7815 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=23.0879 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=69.2722 , p=0.0000  , df=3
+likelihood ratio test: chi2=69.2294 , p=0.0000  , df=3
+parameter F test:         F=23.0879 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=17.5593 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=70.2484 , p=0.0000  , df=4
+likelihood ratio test: chi2=70.2043 , p=0.0000  , df=4
+parameter F test:         F=17.5593 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=14.6404 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=73.2162 , p=0.0000  , df=5
+likelihood ratio test: chi2=73.1684 , p=0.0000  , df=5
+parameter F test:         F=14.6404 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for pollution_index and Temperature completed successfully.
+
+Results for 'pollution_index' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=18.0952, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=18.0962, p=0.0000, df=1
+  - Likelihood ratio test: chi2=18.0933, p=0.0000, df=1
+  - Parameter F test: F=18.0952, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=31.7815, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=63.5687, p=0.0000, df=2
+  - Likelihood ratio test: chi2=63.5327, p=0.0000, df=2
+  - Parameter F test: F=31.7815, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=23.0879, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=69.2722, p=0.0000, df=3
+  - Likelihood ratio test: chi2=69.2294, p=0.0000, df=3
+  - Parameter F test: F=23.0879, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=17.5593, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=70.2484, p=0.0000, df=4
+  - Likelihood ratio test: chi2=70.2043, p=0.0000, df=4
+  - Parameter F test: F=17.5593, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=14.6404, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=73.2162, p=0.0000, df=5
+  - Likelihood ratio test: chi2=73.1684, p=0.0000, df=5
+  - Parameter F test: F=14.6404, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'pollution_index' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'SO2_to_NO2_ratio' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=0.0534  , p=0.8172  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=0.0534  , p=0.8172  , df=1
+likelihood ratio test: chi2=0.0534  , p=0.8172  , df=1
+parameter F test:         F=0.0534  , p=0.8172  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=2.2134  , p=0.1093  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=4.4273  , p=0.1093  , df=2
+likelihood ratio test: chi2=4.4271  , p=0.1093  , df=2
+parameter F test:         F=2.2134  , p=0.1093  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=1.5406  , p=0.2017  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=4.6223  , p=0.2016  , df=3
+likelihood ratio test: chi2=4.6221  , p=0.2017  , df=3
+parameter F test:         F=1.5406  , p=0.2017  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=1.3222  , p=0.2590  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=5.2895  , p=0.2589  , df=4
+likelihood ratio test: chi2=5.2893  , p=0.2589  , df=4
+parameter F test:         F=1.3222  , p=0.2590  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=1.0736  , p=0.3727  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=5.3689  , p=0.3725  , df=5
+likelihood ratio test: chi2=5.3686  , p=0.3726  , df=5
+parameter F test:         F=1.0736  , p=0.3727  , df_denom=55984, df_num=5
+
+Granger Causality Test for SO2_to_NO2_ratio and Temperature completed successfully.
+
+Results for 'SO2_to_NO2_ratio' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=0.0534, p=0.8172, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=0.0534, p=0.8172, df=1
+  - Likelihood ratio test: chi2=0.0534, p=0.8172, df=1
+  - Parameter F test: F=0.0534, p=0.8172, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=2.2134, p=0.1093, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=4.4273, p=0.1093, df=2
+  - Likelihood ratio test: chi2=4.4271, p=0.1093, df=2
+  - Parameter F test: F=2.2134, p=0.1093, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=1.5406, p=0.2017, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=4.6223, p=0.2016, df=3
+  - Likelihood ratio test: chi2=4.6221, p=0.2017, df=3
+  - Parameter F test: F=1.5406, p=0.2017, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=1.3222, p=0.2590, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=5.2895, p=0.2589, df=4
+  - Likelihood ratio test: chi2=5.2893, p=0.2589, df=4
+  - Parameter F test: F=1.3222, p=0.2590, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=1.0736, p=0.3727, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=5.3689, p=0.3725, df=5
+  - Likelihood ratio test: chi2=5.3686, p=0.3726, df=5
+  - Parameter F test: F=1.0736, p=0.3727, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+No significant Granger causality found for 'SO2_to_NO2_ratio' causing 'Temperature' (p >= 0.05).
+
+Testing if 'O3_to_NO2_ratio' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=1767.4515, p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=1767.5462, p=0.0000  , df=1
+likelihood ratio test: chi2=1740.2243, p=0.0000  , df=1
+parameter F test:         F=1767.4515, p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=664.8887, p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=1329.8962, p=0.0000  , df=2
+likelihood ratio test: chi2=1314.3500, p=0.0000  , df=2
+parameter F test:         F=664.8887, p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=524.3661, p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=1573.2951, p=0.0000  , df=3
+likelihood ratio test: chi2=1551.5988, p=0.0000  , df=3
+parameter F test:         F=524.3661, p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=427.8673, p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1711.7444, p=0.0000  , df=4
+likelihood ratio test: chi2=1686.1024, p=0.0000  , df=4
+parameter F test:         F=427.8673, p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=342.8138, p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=1714.4059, p=0.0000  , df=5
+likelihood ratio test: chi2=1688.6845, p=0.0000  , df=5
+parameter F test:         F=342.8138, p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for O3_to_NO2_ratio and Temperature completed successfully.
+
+Results for 'O3_to_NO2_ratio' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=1767.4515, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=1767.5462, p=0.0000, df=1
+  - Likelihood ratio test: chi2=1740.2243, p=0.0000, df=1
+  - Parameter F test: F=1767.4515, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=664.8887, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=1329.8962, p=0.0000, df=2
+  - Likelihood ratio test: chi2=1314.3500, p=0.0000, df=2
+  - Parameter F test: F=664.8887, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=524.3661, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=1573.2951, p=0.0000, df=3
+  - Likelihood ratio test: chi2=1551.5988, p=0.0000, df=3
+  - Parameter F test: F=524.3661, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=427.8673, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1711.7444, p=0.0000, df=4
+  - Likelihood ratio test: chi2=1686.1024, p=0.0000, df=4
+  - Parameter F test: F=427.8673, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=342.8138, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=1714.4059, p=0.0000, df=5
+  - Likelihood ratio test: chi2=1688.6845, p=0.0000, df=5
+  - Parameter F test: F=342.8138, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'O3_to_NO2_ratio' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'weighted_pollution_index' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=18.4148 , p=0.0000  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=18.4158 , p=0.0000  , df=1
+likelihood ratio test: chi2=18.4128 , p=0.0000  , df=1
+parameter F test:         F=18.4148 , p=0.0000  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=32.2332 , p=0.0000  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=64.4722 , p=0.0000  , df=2
+likelihood ratio test: chi2=64.4351 , p=0.0000  , df=2
+parameter F test:         F=32.2332 , p=0.0000  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=23.4484 , p=0.0000  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=70.3541 , p=0.0000  , df=3
+likelihood ratio test: chi2=70.3099 , p=0.0000  , df=3
+parameter F test:         F=23.4484 , p=0.0000  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=17.8386 , p=0.0000  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=71.3660 , p=0.0000  , df=4
+likelihood ratio test: chi2=71.3206 , p=0.0000  , df=4
+parameter F test:         F=17.8386 , p=0.0000  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=14.8707 , p=0.0000  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=74.3682 , p=0.0000  , df=5
+likelihood ratio test: chi2=74.3188 , p=0.0000  , df=5
+parameter F test:         F=14.8707 , p=0.0000  , df_denom=55984, df_num=5
+
+Granger Causality Test for weighted_pollution_index and Temperature completed successfully.
+
+Results for 'weighted_pollution_index' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=18.4148, p=0.0000, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=18.4158, p=0.0000, df=1
+  - Likelihood ratio test: chi2=18.4128, p=0.0000, df=1
+  - Parameter F test: F=18.4148, p=0.0000, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=32.2332, p=0.0000, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=64.4722, p=0.0000, df=2
+  - Likelihood ratio test: chi2=64.4351, p=0.0000, df=2
+  - Parameter F test: F=32.2332, p=0.0000, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=23.4484, p=0.0000, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=70.3541, p=0.0000, df=3
+  - Likelihood ratio test: chi2=70.3099, p=0.0000, df=3
+  - Parameter F test: F=23.4484, p=0.0000, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=17.8386, p=0.0000, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=71.3660, p=0.0000, df=4
+  - Likelihood ratio test: chi2=71.3206, p=0.0000, df=4
+  - Parameter F test: F=17.8386, p=0.0000, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=14.8707, p=0.0000, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=74.3682, p=0.0000, df=5
+  - Likelihood ratio test: chi2=74.3188, p=0.0000, df=5
+  - Parameter F test: F=14.8707, p=0.0000, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+'weighted_pollution_index' significantly causes 'Temperature' at least at one lag (p < 0.05).
+
+Testing if 'particulate_pollution_ratio' causes 'Temperature'...
+
+/home/systemx86/anaconda3/envs/nit/lib/python3.11/site-packages/statsmodels/tsa/stattools.py:1545: FutureWarning: verbose is deprecated since functions should not print results
+  warnings.warn(
+
+Granger Causality
+number of lags (no zero) 1
+ssr based F test:         F=1.5882  , p=0.2076  , df_denom=55996, df_num=1
+ssr based chi2 test:   chi2=1.5882  , p=0.2076  , df=1
+likelihood ratio test: chi2=1.5882  , p=0.2076  , df=1
+parameter F test:         F=1.5882  , p=0.2076  , df_denom=55996, df_num=1
+
+Granger Causality
+number of lags (no zero) 2
+ssr based F test:         F=2.8992  , p=0.0551  , df_denom=55993, df_num=2
+ssr based chi2 test:   chi2=5.7989  , p=0.0551  , df=2
+likelihood ratio test: chi2=5.7986  , p=0.0551  , df=2
+parameter F test:         F=2.8992  , p=0.0551  , df_denom=55993, df_num=2
+
+Granger Causality
+number of lags (no zero) 3
+ssr based F test:         F=0.8644  , p=0.4587  , df_denom=55990, df_num=3
+ssr based chi2 test:   chi2=2.5935  , p=0.4586  , df=3
+likelihood ratio test: chi2=2.5934  , p=0.4586  , df=3
+parameter F test:         F=0.8644  , p=0.4587  , df_denom=55990, df_num=3
+
+Granger Causality
+number of lags (no zero) 4
+ssr based F test:         F=0.4302  , p=0.7869  , df_denom=55987, df_num=4
+ssr based chi2 test:   chi2=1.7211  , p=0.7869  , df=4
+likelihood ratio test: chi2=1.7210  , p=0.7869  , df=4
+parameter F test:         F=0.4302  , p=0.7869  , df_denom=55987, df_num=4
+
+Granger Causality
+number of lags (no zero) 5
+ssr based F test:         F=0.8676  , p=0.5018  , df_denom=55984, df_num=5
+ssr based chi2 test:   chi2=4.3389  , p=0.5017  , df=5
+likelihood ratio test: chi2=4.3387  , p=0.5017  , df=5
+parameter F test:         F=0.8676  , p=0.5018  , df_denom=55984, df_num=5
+
+Granger Causality Test for particulate_pollution_ratio and Temperature completed successfully.
+
+Results for 'particulate_pollution_ratio' causing 'Temperature':
+
+Lag 1 Results:
+  - F test:         F=1.5882, p=0.2076, df_num=55996.0, df_denom=1
+  - Chi2 test:      chi2=1.5882, p=0.2076, df=1
+  - Likelihood ratio test: chi2=1.5882, p=0.2076, df=1
+  - Parameter F test: F=1.5882, p=0.2076, df_num=55996.0, df_denom=1.0
+---------------------------------------------------
+Lag 2 Results:
+  - F test:         F=2.8992, p=0.0551, df_num=55993.0, df_denom=2
+  - Chi2 test:      chi2=5.7989, p=0.0551, df=2
+  - Likelihood ratio test: chi2=5.7986, p=0.0551, df=2
+  - Parameter F test: F=2.8992, p=0.0551, df_num=55993.0, df_denom=2.0
+---------------------------------------------------
+Lag 3 Results:
+  - F test:         F=0.8644, p=0.4587, df_num=55990.0, df_denom=3
+  - Chi2 test:      chi2=2.5935, p=0.4586, df=3
+  - Likelihood ratio test: chi2=2.5934, p=0.4586, df=3
+  - Parameter F test: F=0.8644, p=0.4587, df_num=55990.0, df_denom=3.0
+---------------------------------------------------
+Lag 4 Results:
+  - F test:         F=0.4302, p=0.7869, df_num=55987.0, df_denom=4
+  - Chi2 test:      chi2=1.7211, p=0.7869, df=4
+  - Likelihood ratio test: chi2=1.7210, p=0.7869, df=4
+  - Parameter F test: F=0.4302, p=0.7869, df_num=55987.0, df_denom=4.0
+---------------------------------------------------
+Lag 5 Results:
+  - F test:         F=0.8676, p=0.5018, df_num=55984.0, df_denom=5
+  - Chi2 test:      chi2=4.3389, p=0.5017, df=5
+  - Likelihood ratio test: chi2=4.3387, p=0.5017, df=5
+  - Parameter F test: F=0.8676, p=0.5018, df_num=55984.0, df_denom=5.0
+---------------------------------------------------
+No significant Granger causality found for 'particulate_pollution_ratio' causing 'Temperature' (p >= 0.05).
+
+
+Granger Causality Test Summary:
+Significant features causing 'Temperature': ['ID', 'City_ID', 'Particulate_matter', 'SO2_concentration', 'O3_concentration', 'CO_concentration', 'NO2_concentration', 'Presure', 'Dew_point', 'Anonymous_X1', 'Wind_speed', 'Moisture_percent', 'Hour', 'Month', 'Year', 'pollution_index', 'O3_to_NO2_ratio', 'weighted_pollution_index']
+
+Significant features causing 'Temperature': ['ID', 'City_ID', 'Particulate_matter', 'SO2_concentration', 'O3_concentration', 'CO_concentration', 'NO2_concentration', 'Presure', 'Dew_point', 'Anonymous_X1', 'Wind_speed', 'Moisture_percent', 'Hour', 'Month', 'Year', 'pollution_index', 'O3_to_NO2_ratio', 'weighted_pollution_index']
+
+Step 5: Running cross-correlation analysis...
+
+Performing cross-correlation analysis with target 'Temperature'...
+
+Analyzing cross-correlation between 'Temperature' and 'ID'...
+
+  - Maximum correlation: -4027.9575 at lag 50
+
+Analyzing cross-correlation between 'Temperature' and 'City_ID'...
+
+  - Maximum correlation: 57.2028 at lag 50
+
+Analyzing cross-correlation between 'Temperature' and 'Particulate_matter'...
+
+  - Maximum correlation: -6683.8904 at lag -44
+
+Analyzing cross-correlation between 'Temperature' and 'SO2_concentration'...
+
+  - Maximum correlation: 50001.2181 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'O3_concentration'...
+
+  - Maximum correlation: 35259.9805 at lag -1
+
+Analyzing cross-correlation between 'Temperature' and 'CO_concentration'...
+
+  - Maximum correlation: 47895.4798 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'NO2_concentration'...
+
+  - Maximum correlation: 49112.2436 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'Presure'...
+
+  - Maximum correlation: -46575.5877 at lag -2
+
+Analyzing cross-correlation between 'Temperature' and 'Dew_point'...
+
+  - Maximum correlation: 47469.1684 at lag 13
+
+Analyzing cross-correlation between 'Temperature' and 'Anonymous_X1'...
+
+  - Maximum correlation: 37536.6938 at lag 1
+
+Analyzing cross-correlation between 'Temperature' and 'Wind_speed'...
+
+  - Maximum correlation: -11151.4778 at lag 13
+
+Analyzing cross-correlation between 'Temperature' and 'Moisture_percent'...
+
+  - Maximum correlation: -44533.5289 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'Day'...
+
+  - Maximum correlation: 982.7701 at lag 50
+
+Analyzing cross-correlation between 'Temperature' and 'Day_of_Week'...
+
+  - Maximum correlation: -261.2918 at lag -41
+
+Analyzing cross-correlation between 'Temperature' and 'Hour'...
+
+  - Maximum correlation: -11982.9108 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'Month'...
+
+  - Maximum correlation: -29559.9089 at lag 50
+
+Analyzing cross-correlation between 'Temperature' and 'Year'...
+
+  - Maximum correlation: -786.3103 at lag -50
+
+Analyzing cross-correlation between 'Temperature' and 'pollution_index'...
+
+  - Maximum correlation: 48611.8732 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'SO2_to_NO2_ratio'...
+
+  - Maximum correlation: 1509.0750 at lag -47
+
+Analyzing cross-correlation between 'Temperature' and 'O3_to_NO2_ratio'...
+
+  - Maximum correlation: -13109.5815 at lag 11
+
+Analyzing cross-correlation between 'Temperature' and 'weighted_pollution_index'...
+
+  - Maximum correlation: 48715.4993 at lag 0
+
+Analyzing cross-correlation between 'Temperature' and 'particulate_pollution_ratio'...
+
+  - Maximum correlation: -28340.9400 at lag -47
+
+
+Cross-correlation analysis completed.
+
+
+Analysis completed. Returning results...
+
+
